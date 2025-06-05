@@ -25,6 +25,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 main {
@@ -76,4 +77,12 @@ main {
 #header-options {
     display: flex;
     gap: 10px;
+}
+
+#category-options {
+    /* border: 2px solid red; */
+}
+
+#categorys {
+    display: flex;
 }
