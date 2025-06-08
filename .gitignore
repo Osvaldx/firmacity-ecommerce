@@ -1,0 +1,14 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.pdb
+*.exe
+*.dll
+*.cache
+*.log
+*.vsidx
+*.json.backup
+*.vscode/
+*.dbmdl
