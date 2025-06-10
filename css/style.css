@@ -20,6 +20,10 @@
     color: white;
 }
 
+body {
+    background-color: #ddd;
+}
+
 header {
     padding: 10px 0px;
     display: flex;
@@ -27,6 +31,11 @@ header {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    box-shadow: 0px 6px 5px -3px #999;
+    background-color: white;
+}
+
+main {
 }
 
 #header-top {
@@ -37,10 +46,9 @@ header {
     display: flex;
 }
 
-main {
-    background-color: #333;
-    height: 80vh;
+#header-bottom {
 }
+
 
 #logo {
     width: 9rem;
@@ -101,4 +109,36 @@ main {
     justify-content: center;
     list-style-type: none;
     gap: 20px;
+}
+
+#promotion-imgs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60vw;
+    gap: 10px;
+    justify-content: center;
+}
+
+.style-imgs{
+    border-radius: 20px;
+    width: 350px;
+    border: 1px solid #999;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.style-imgs:hover {
+    transform: scale(1.05);
+}
+
+.style-imgs:active {
+    transition: 0.1s;
+    transform: scale(1);
+}
+
+#promotions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
