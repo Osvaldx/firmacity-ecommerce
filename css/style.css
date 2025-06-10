@@ -6,6 +6,7 @@
 
 :root {
     --color-green: #00b941;
+    --color-orange: #fc7e22;
 }
 
 .promotions {
@@ -81,6 +82,13 @@ main {
     transform: scale(1.05);
     color: var(--color-green);
     border: 2px solid var(--color-green);
+}
+
+.btns-options:active{
+    transition: 0.1s;
+    transform: scale(0.99);
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange);
 }
 
 #header-options {
