@@ -5,11 +5,11 @@
 }
 
 :root {
-    --color-verde: #00b941;
+    --color-green: #00b941;
 }
 
 .promotions {
-    background-color: var(--color-verde);
+    background-color: var(--color-green);
     height: 4vh;
     text-align: center;
     align-content: center;
@@ -20,12 +20,20 @@
 }
 
 header {
-    height: 10vh;
+    padding: 10px 0px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+
+#header-top {
     gap: 20px;
-    flex-wrap: wrap;
+}
+
+#header-top, #header-bottom {
+    display: flex;
 }
 
 main {
@@ -47,7 +55,7 @@ main {
 }
 
 #product-finder:focus {
-    border-color: var(--color-verde);
+    border-color: var(--color-green);
 }
 
 #search-bar i {
@@ -62,27 +70,27 @@ main {
     justify-content: center;
     align-items: center;
     gap: 5px;
-    padding: 10px;
+    padding: 5px 15px;
     border-radius: 10px;
     border: 2px solid #aaa;
     transition: 0.5s;
+    font-weight: bold;
 }
 
 .btns-options:hover {
     transform: scale(1.05);
-    color: var(--color-verde);
-    border: 2px solid var(--color-verde);
+    color: var(--color-green);
+    border: 2px solid var(--color-green);
 }
 
 #header-options {
     display: flex;
     gap: 10px;
 }
-
-#category-options {
-    /* border: 2px solid red; */
-}
-
-#categorys {
+#categories {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+    gap: 20px;
 }
