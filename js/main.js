@@ -1,6 +1,6 @@
 /////////////////// GLOBAL VARIABLES /////////////////
 let promotionText = document.querySelector(".promotion-text");
-let categoriesUL = document.getElementById("categories");
+let categoriesUL = document.getElementById("categories-list");
 let promotionMessages = [
     "Hasta 6 cuotas sin interes con tarjetas BBVA",
     "Encuentra tu sucursal más cercana",
