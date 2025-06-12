@@ -17,8 +17,15 @@ namespace firmacityBackend.Data
 
         public MySqlConnection getConnection() {
             if (connection == null) {
-                this.connection = new MySqlConnection(this.connectionChain);
-                this.connection.Open();
+                try
+                {
+                    this.connection = new MySqlConnection(this.connectionChain);
+                    this.connection.Open();
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine($"[!] Error {ex.Message}");
+                }
             }
 
             return connection;
