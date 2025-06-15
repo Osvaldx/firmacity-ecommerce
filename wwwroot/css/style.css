@@ -104,25 +104,6 @@ header {
     gap: 20px;
 }
 
-.style-imgs{
-    border-radius: 20px;
-    border: 1px solid #999;
-    transition: 0.5s;
-    cursor: pointer;
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.style-imgs:hover {
-    transform: scale(1.05);
-}
-
-.style-imgs:active {
-    transition: 0.1s;
-    transform: scale(1);
-}
-
 #promotions {
     display: flex;
     align-items: center;
@@ -131,13 +112,52 @@ header {
     gap: 15px;
 }
 
+
+
+
+/* -------------------- IMGS ------------------ */
+
+.style-imgs-two{
+    border-radius: 20px;
+    border: 1px solid #999;
+    transition: 0.5s;
+    cursor: pointer;
+    object-fit: cover;
+    width: 100%;
+}
+
+.style-imgs-one:hover, .style-imgs-two:hover, .style-imgs-three:hover {
+    transform: scale(1.05);
+}
+
+.style-imgs-one:active, .style-imgs-two:active, .style-imgs-three:active {
+    transition: 0.1s;
+    transform: scale(1);
+}
+
+
 .box-imgs {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 15%;
 }
+
 
 #categories-list-two {
     text-align: center;
+}
+
+.style-imgs-one, .style-imgs-three{
+    border-radius: 20px;
+    border: 1px solid #999;
+    transition: 0.5s;
+    cursor: pointer;
+    object-fit: cover;
+    width: 100%;
+}
+
+.img-two {
+    width: 35%;
 }
