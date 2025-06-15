@@ -21,7 +21,7 @@
 }
 
 body {
-    background-color: #ddd;
+    background-color: #ebebeb;
 }
 
 header {
@@ -191,6 +191,7 @@ header {
     justify-content: start;
     align-items: center;
     font-size: 15px;
+    font-weight: 500;
     gap: 8px;
     transition: 0.5s;
 }
