@@ -1,9 +1,7 @@
 ﻿using System.Data;
-using System.Reflection.PortableExecutable;
 using firmacityBackend.Data;
 using firmacityBackend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Tree;
 using MySql.Data.MySqlClient;
 //using Microsoft.AspNetCore.Authorization;
 
@@ -24,10 +22,14 @@ namespace firmacityBackend.Controllers
             return (token == "productsfirmacitytopsecret");
         }
 
+        private List<Product> orderByPrice(List<Product> productList) {
+            return productList;
+        }
+
         //[Authorize]
         [HttpGet]
         [Route("getProductsList")]
-        public IActionResult getProductsList() {
+        public IActionResult getProductsList(bool orderByPrice = false, bool orderByName = false) {
             if (!isAuthorization()) {
                 return BadRequest(new { message = "You can´t access this API"});
             }
@@ -72,10 +74,6 @@ namespace firmacityBackend.Controllers
                 parameters.Add("@productId",productId);
                 mySqlDataReader = DbHelper.queryExecutor(query, this.connection, parameters);
 
-                if (mySqlDataReader == null) {
-                    return BadRequest(new { result = "[!] Database turned off" });
-                }
-
                 while (mySqlDataReader.Read()) {
                     product = DbHelper.createProduct(mySqlDataReader);
                 }
@@ -86,6 +84,27 @@ namespace firmacityBackend.Controllers
             }
 
             return Ok(new { Success = true, result = product});
+        }
+
+        [HttpDelete]
+        [Route("deleteProduct")]
+        public IActionResult deleteProduct(int productId) {
+            if (!isAuthorization()) {
+                return BadRequest(new { result = "You can´t access this API" });
+            }
+
+            if(connection.getConnection != null) {
+                string query = "DELETE FROM products WHERE product_id = @productId;";
+                var parameters = new Dictionary<string, object>();
+                parameters.Add("@productId", productId);
+
+                int rowsAffected = DbHelper.executeNonQuery(query, this.connection, parameters);
+                if (rowsAffected == 0) {
+                    return BadRequest(new { message = $"The productId {productId} don´t exits"});
+                }
+            }
+
+            return Ok(new { message = $"The productId {productId} has been successfully deleted"});
         }
     }
 }
