@@ -13,17 +13,21 @@ namespace firmacityBackend.Controllers
     {
         private ConnectionDB connection;
 
-        public ProductsController() {
+        public ProductsController()
+        {
             this.connection = new ConnectionDB();
         }
 
-        private Boolean isAuthorization() {
+        private Boolean isAuthorization()
+        {
             string token = Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value;
             return (token == "productsfirmacitytopsecret");
         }
 
-        private List<Product> orderProductBy(List<Product> productList, string orderBy) {
-            switch (orderBy) {
+        private List<Product> orderProductBy(List<Product> productList, string orderBy)
+        {
+            switch (orderBy)
+            {
                 case "price":
                     productList = productList.OrderBy(product => product.Price).ToList();
                     break;
@@ -47,9 +51,11 @@ namespace firmacityBackend.Controllers
         //[Authorize]
         [HttpGet]
         [Route("getProductsList")]
-        public IActionResult getProductsList(string orderBy= "") {
-            if (!isAuthorization()) {
-                return BadRequest(new { message = "You can´t access this API"});
+        public IActionResult getProductsList(string orderBy = "")
+        {
+            if (!isAuthorization())
+            {
+                return BadRequest(new { message = "You can´t access this API" });
             }
 
             List<Product> productsList = new List<Product>();
@@ -57,31 +63,38 @@ namespace firmacityBackend.Controllers
             string query = "SELECT * FROM products;";
             MySqlDataReader mySqlDataReader = null;
 
-            if (connection.getConnection() != null) {
+            if (connection.getConnection() != null)
+            {
                 mySqlDataReader = DbHelper.queryExecutor(query, this.connection);
 
-                while (mySqlDataReader.Read()) {
+                while (mySqlDataReader.Read())
+                {
                     productsList.Add(DbHelper.createProduct(mySqlDataReader));
                 }
 
-                if (orderBy != "") {
+                if (orderBy != "")
+                {
                     productsList = orderProductBy(productsList, orderBy);
-                    if (productsList.Count == 0) {
+                    if (productsList.Count == 0)
+                    {
                         return BadRequest(new { result = "[!] Invalid sort type" });
                     }
                 }
-                
+
                 return Ok(new { Success = true, productList = productsList });
             }
-            else {
+            else
+            {
                 return BadRequest(new { message = "Database turned off" });
             }
         }
 
         [HttpGet]
         [Route("GetProduct")]
-        public IActionResult getProduct(int productId) {
-            if (!isAuthorization()) {
+        public IActionResult getProduct(int productId)
+        {
+            if (!isAuthorization())
+            {
                 return BadRequest(new { result = "You can´t access this API" });
             }
 
@@ -89,42 +102,57 @@ namespace firmacityBackend.Controllers
             MySqlDataReader mySqlDataReader = null;
             Product product = null;
 
-            if (connection.getConnection() != null) {
+            if (connection.getConnection() != null)
+            {
                 var parameters = new Dictionary<string, object>();
-                parameters.Add("@productId",productId);
+                parameters.Add("@productId", productId);
                 mySqlDataReader = DbHelper.queryExecutor(query, this.connection, parameters);
 
-                while (mySqlDataReader.Read()) {
+                while (mySqlDataReader.Read())
+                {
                     product = DbHelper.createProduct(mySqlDataReader);
                 }
             }
 
-            if (product == null) {
+            if (product == null)
+            {
                 return BadRequest(new { result = "This product does not exist" });
             }
 
-            return Ok(new { Success = true, result = product});
+            return Ok(new { Success = true, result = product });
         }
 
         [HttpDelete]
         [Route("deleteProduct")]
-        public IActionResult deleteProduct(int productId) {
-            if (!isAuthorization()) {
+        public IActionResult deleteProduct(int productId)
+        {
+            if (!isAuthorization())
+            {
                 return BadRequest(new { result = "You can´t access this API" });
             }
 
-            if(connection.getConnection != null) {
+            if (connection.getConnection != null)
+            {
                 string query = "DELETE FROM products WHERE product_id = @productId;";
                 var parameters = new Dictionary<string, object>();
                 parameters.Add("@productId", productId);
 
                 int rowsAffected = DbHelper.executeNonQuery(query, this.connection, parameters);
-                if (rowsAffected == 0) {
-                    return BadRequest(new { message = $"The productId {productId} don´t exits"});
+                if (rowsAffected == 0)
+                {
+                    return BadRequest(new { message = $"The productId {productId} don´t exits" });
                 }
             }
 
-            return Ok(new { message = $"The productId {productId} has been successfully deleted"});
+            return Ok(new { message = $"The productId {productId} has been successfully deleted" });
+        }
+
+        [HttpPost]
+        [Route("updateProduct")]
+        public IActionResult updateProduct(Product product)
+        {
+
+            return Ok(new { Success = true });
         }
     }
 }
