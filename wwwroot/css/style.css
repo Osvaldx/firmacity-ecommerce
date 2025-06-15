@@ -109,7 +109,7 @@ header {
     align-items: center;
     justify-content: center;
     margin: 20px;
-    gap: 15px;
+    gap: 25px;
 }
 
 
@@ -145,10 +145,6 @@ header {
 }
 
 
-#categories-list-two {
-    text-align: center;
-}
-
 .style-imgs-one, .style-imgs-three{
     border-radius: 20px;
     border: 1px solid #999;
@@ -159,5 +155,63 @@ header {
 }
 
 .img-two {
-    width: 35%;
+    width: 31%;
+}
+
+
+/* -------------------- LISTA DE SECCIONES ------------------ */
+
+#categories-list-two {
+    margin-top: 90px;
+}
+
+
+#categories-list-two h3 {
+    text-align: center;
+    width: 40%;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#section-list {
+    width: 80%; 
+    margin: 0 auto; 
+    text-align: center;
+}
+
+.btns-categories {
+    list-style-type: none;
+    border: 1px solid #999 ;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 15%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 15px;
+    gap: 8px;
+    transition: 0.5s;
+}
+
+.btns-categories:hover{
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);;
+}
+
+.style-list-section {
+
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.categorie-img {
+    width: 15%;
 }
