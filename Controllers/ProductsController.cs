@@ -22,14 +22,32 @@ namespace firmacityBackend.Controllers
             return (token == "productsfirmacitytopsecret");
         }
 
-        private List<Product> orderByPrice(List<Product> productList) {
+        private List<Product> orderProductBy(List<Product> productList, string orderBy) {
+            switch (orderBy) {
+                case "price":
+                    productList = productList.OrderBy(product => product.Price).ToList();
+                    break;
+                case "price_desc":
+                    productList = productList.OrderByDescending(product => product.Price).ToList();
+                    break;
+                case "name":
+                    productList = productList.OrderBy(product => product.Name).ToList();
+                    break;
+                case "name_desc":
+                    productList = productList.OrderByDescending(product => product.Name).ToList();
+                    break;
+                default:
+                    productList = new List<Product>();
+                    break;
+            }
+
             return productList;
         }
 
         //[Authorize]
         [HttpGet]
         [Route("getProductsList")]
-        public IActionResult getProductsList(bool orderByPrice = false, bool orderByName = false) {
+        public IActionResult getProductsList(string orderBy= "") {
             if (!isAuthorization()) {
                 return BadRequest(new { message = "You can´t access this API"});
             }
@@ -42,15 +60,17 @@ namespace firmacityBackend.Controllers
             if (connection.getConnection() != null) {
                 mySqlDataReader = DbHelper.queryExecutor(query, this.connection);
 
-                if (mySqlDataReader == null)
-                {
-                    return BadRequest(new { result = "[!] Database turned off" });
-                }
-
                 while (mySqlDataReader.Read()) {
                     productsList.Add(DbHelper.createProduct(mySqlDataReader));
                 }
 
+                if (orderBy != "") {
+                    productsList = orderProductBy(productsList, orderBy);
+                    if (productsList.Count == 0) {
+                        return BadRequest(new { result = "[!] Invalid sort type" });
+                    }
+                }
+                
                 return Ok(new { Success = true, productList = productsList });
             }
             else {
