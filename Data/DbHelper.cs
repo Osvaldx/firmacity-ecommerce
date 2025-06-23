@@ -40,8 +40,11 @@ namespace firmacityBackend.Data
         public static int executeNonQuery(string query, ConnectionDB connection, Dictionary<string, object> parameters) {
             MySqlCommand mySqlCommand = new MySqlCommand(query, connection.getConnection());
 
-            foreach (var parameter in parameters) {
-                mySqlCommand.Parameters.AddWithValue(parameter.Key, parameter.Value);
+            if (parameters != null) {
+                foreach (var parameter in parameters)
+                {
+                    mySqlCommand.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                }
             }
 
             int rowsAffected = mySqlCommand.ExecuteNonQuery();
