@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using firmacityBackend.Data;
 using firmacityBackend.Models;
+using firmacityBackend.Validations;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 //using Microsoft.AspNetCore.Authorization;
@@ -159,6 +160,11 @@ namespace firmacityBackend.Controllers
                 return BadRequest(new { result = "[-] You can´t access this API" });
             }
 
+            if (!productValidation.isValidProduct(product, out string? error))
+            {
+                return BadRequest(new { message_error = error });
+            }
+
             string query = "SELECT * FROM products WHERE product_id = @product_id";
             var parameters = new Dictionary<string, object>();
             parameters.Add("@product_id", product.Id);
@@ -167,6 +173,7 @@ namespace firmacityBackend.Controllers
 
             if (reader.HasRows)
             {
+
                 reader.Close();
                 try
                 {
