@@ -135,7 +135,7 @@ namespace firmacityBackend.Controllers
                 return BadRequest(new { result = "[-] You can´t access this API" });
             }
 
-            if (connection.getConnection != null)
+            if (connection.getConnection() != null)
             {
                 string query = "DELETE FROM products WHERE product_id = @productId;";
                 var parameters = new Dictionary<string, object>();
